@@ -1,3 +1,4 @@
+// quiz questions
 const questionsArray = [
   {
     question: "what does JS stand for?",
@@ -67,25 +68,36 @@ var timerCounter = questionsArray.length * 10
 var currentQuestion = 0
 var score = 0
 
-
-function stop() {
-  clearInterval(timerObj);
-  }
-  
-
+//hide questions if quiz hasn't started
 questCont.style.display ="none"
 
 
 startbutton.addEventListener("click",function(){
   questCont.style.display ="block"
   startbutton.style.display ="none" 
+
+  //timer countdown
   timerObj = setInterval(function(){
     timer.textContent = "Timer: "+timerCounter
-    if(timerCounter>1){
+    if(timerCounter>0){
       timerCounter--
+    
+    //if user finishes quiz; display summary
+    if(currentQuestion === questionsArray.length){
+      clearInterval(timerObj)
+      timer.style.display = "none"
+      displaySummary()
+    }
+    //if timer runs out; display summary
+    if(timerObj == 0){
+      displaySummary()
+      clearInterval(timerObj)
+      timer.style.display = "none"
+    }
     }else{
       displaySummary()
-      stop()
+      clearInterval(timerObj)
+      timer.style.display = "none"
     }
   },1000)
   displayQuestion()
@@ -102,7 +114,6 @@ function displayQuestion(){
 }
 
 function displaySummary(){
-  
   questCont.style.display ="none"
   finalScore.textContent = (`you got ${score} out of 5 questions correct.`)
 }
@@ -114,19 +125,20 @@ function evaluateAnswer(){
   if(userAnswer === questionsArray[currentQuestion].answer){
     score++
     rightOrWrong.textContent = "Great job!"
+
+  // if answer is wrong; deduct 5 sec from timer
   }else{
     rightOrWrong.textContent = "Sorry, that's the wrong answer."
     timerCounter-=5
   }
+
+  //if it's not the last question, display next question
   if(currentQuestion<questionsArray.length-1){
     currentQuestion++;
     displayQuestion()
   }else{
     displaySummary()
-    stop()
-
   }
-
 }
 
     
