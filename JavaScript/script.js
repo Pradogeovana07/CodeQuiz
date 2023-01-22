@@ -83,7 +83,7 @@ startbutton.addEventListener("click",function(){
       timerCounter--
     
     //if user finishes quiz; display summary
-    if(currentQuestion === questionsArray.length){
+    if(currentQuestion === questionsArray.length-1){
       clearInterval(timerObj)
       timer.style.display = "none"
       displaySummary()
@@ -115,7 +115,7 @@ function displayQuestion(){
 
 function displaySummary(){
   questCont.style.display ="none"
-  finalScore.textContent = (`you got ${score} out of 5 questions correct.`)
+  finalScore.textContent = (`You got ${score} out of 5 questions correct`)
 }
 
 
@@ -124,11 +124,11 @@ function evaluateAnswer(){
   console.log(userAnswer)
   if(userAnswer === questionsArray[currentQuestion].answer){
     score++
-    rightOrWrong.textContent = "Great job!"
+    rightOrWrong.textContent = "previous question : Correct"
 
   // if answer is wrong; deduct 5 sec from timer
   }else{
-    rightOrWrong.textContent = "Sorry, that's the wrong answer."
+    rightOrWrong.textContent = "previous question: Incorrect"
     timerCounter-=5
   }
 
