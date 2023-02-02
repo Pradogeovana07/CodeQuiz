@@ -81,23 +81,20 @@ startbutton.addEventListener("click",function(){
     timer.textContent = "Timer: "+timerCounter
     if(timerCounter>0){
       timerCounter--
-    
+    localStorage.setItem("Score", timerCounter)
     //if user finishes quiz; display summary
     if(currentQuestion === questionsArray.length-1){
       clearInterval(timerObj)
-      timer.style.display = "none"
       displaySummary()
     }
-    //if timer runs out; display summary
+
     if(timerObj == 0){
       displaySummary()
       clearInterval(timerObj)
-      timer.style.display = "none"
     }
     }else{
       displaySummary()
       clearInterval(timerObj)
-      timer.style.display = "none"
     }
   },1000)
   displayQuestion()
@@ -138,6 +135,7 @@ function evaluateAnswer(){
     displayQuestion()
   }else{
     displaySummary()
+    prompt
   }
 }
 
